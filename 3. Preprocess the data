@@ -1,0 +1,7 @@
+# Scale the data
+aapl_df_scaled = aapl_df.copy()
+for col in aapl_df_scaled.columns:
+    aapl_df_scaled[col] = aapl_df_scaled[col] / aapl_df_scaled[col].min()
+
+# Convert the data to a format that the LSTM model can understand
+aapl_data = aapl_df_scaled["Close"].values.reshape(-1, 1)
