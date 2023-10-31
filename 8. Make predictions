@@ -1,0 +1,5 @@
+# Predict the stock price for tomorrow
+tomorrow_pred = model.predict(np.array([aapl_data[-1]]))
+
+# Print the predicted stock price
+print("Predicted stock price for tomorrow:", tomorrow_pred[0][0])
