@@ -1,0 +1,2 @@
+model.compile(optimizer="adam", loss="mse")
+model.fit(X_train, y_train, epochs=100)
