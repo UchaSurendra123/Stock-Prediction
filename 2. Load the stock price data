@@ -1,0 +1,4 @@
+import yfinance as yf
+
+aapl = yf.Ticker("AAPL")
+aapl_df = aapl.history(period="max")
