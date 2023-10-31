@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+import yfinance as yf
+
+# Load the stock price data for Apple
+aapl = yf.Ticker("AAPL")
+aapl_df = aapl.history(period="max")
+
+# Preprocess the data
+aapl_df_scaled = aapl_df.copy()
+for col in aapl_df_scaled.columns:
+    aapl_df_scaled[col] = aapl_df_scaled[col] / aapl_df_scaled[col].min()
+
+aapl_data = aapl_df_scaled["Close"].values.reshape(-1, 1)
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    aapl_data, aapl_data, shuffle=True, test_size=0.2
+)
+
+# Create the LSTM model
+model = Sequential()
+model.add(LSTM(128, input_shape=(1, 1)))
+model.add(Dense(1))
+
+# Compile and train the model
+model.compile(optimizer="adam", loss="mse")
